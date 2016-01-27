@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            csgodouble.com - auto betting bot
 // @description     An userscript that automates csgodouble.com betting using martingale system.
-// @namespace       automated@kjuubiiz
+// @namespace       auto bot@kjuubiiz
 // @version         1.31
 // @author          Kjuubiiz
 // @match           http://www.csgodouble.com/
