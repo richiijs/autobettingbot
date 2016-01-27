@@ -672,11 +672,11 @@ Automated.prototype.lightMode = function() {
 };
 
 Automated.prototype.log = function(message) {
-    chat('alert', '[Automated] ' + message);
+    chat('alert', '[Kjuubiiz] ' + message);
 };
 
 Automated.prototype.logdebug = function(message) {
-    chat('italic', '[Automated] ' + message);
+    chat('italic', '[Kjuubiiz] ' + message);
 };
 
 var automated = new Automated();
