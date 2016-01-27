@@ -1,4 +1,4 @@
-# CSGODouble.com Automated
+# CSGODouble.com Auto betting bot
 ### Userscript that bets for you! Automates betting on [CSGODouble](http://www.csgodouble.com/) (works with [CSGOPolygon](http://csgopolygon.com/)).
 
 Program interface
