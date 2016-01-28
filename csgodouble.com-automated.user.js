@@ -137,7 +137,7 @@ function Automated() {
                 '<h3>Statistics</h3>' +
                 '<p><b>Wins:</b> <span id="automated-stats-wins">' + this.stats.wins + '</span></p>' +
                 '<p><b>Loses:</b> <span id="automated-stats-loses">' + this.stats.loses + '</span></p>' +
-                '<p><b>Balance:</b> <span id="automated-stats-balance">' + this.stats.balance + '</span></p>' +
+                '<p><b>Profit:</b> <span id="automated-stats-balance">' + this.stats.balance + '</span></p>' +
             '</div>' +
         '</div>' +
         '<div class="form-group">' +
