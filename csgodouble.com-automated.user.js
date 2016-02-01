@@ -2,7 +2,7 @@
 // @name            csgodouble.com - auto betting bot
 // @description     An userscript that automates csgodouble.com betting using much systems.
 // @namespace       auto bot@kjuubiiz
-// @version         1.31
+// @version         1.32
 // @author          Kjuubiiz
 // @match           http://www.csgodouble.com/
 // @match           http://www.csgodouble.com/index.php
