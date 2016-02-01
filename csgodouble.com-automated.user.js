@@ -12,6 +12,8 @@
 // @match           http://www.csgopolygon.com/index.php
 // @run-at          document-end
 // @grant           none
+// @updateURL    https://raw.githubusercontent.com/richiijs/csgodoublebot/master/csgodouble.com-automated.user.js
+// @downloadURL https://raw.githubusercontent.com/richiijs/csgodoublebot/master/csgodouble.com-automated.user.js
 // ==/UserScript==
 /* jshint -W097 */
 
