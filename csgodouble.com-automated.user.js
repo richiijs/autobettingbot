@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name            csgodouble.com - auto betting bot
+// @name            csgodouble.com - betting bot
 // @description     An userscript that automates csgodouble.com betting using much systems.
 // @namespace       auto bot@kjuubiiz
 // @version         1.42
