@@ -103,6 +103,10 @@ Because when you look on the history, you may think it's the safest option to go
 
 ## Changelog
 
+1.40:
+
+- Work with new sites.
+
 1.31:
 
 - Compatible with CSGOPolygon.com
