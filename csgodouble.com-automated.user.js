@@ -2,7 +2,7 @@
 // @name            csgodouble.com - auto betting bot
 // @description     An userscript that automates csgodouble.com betting using much systems.
 // @namespace       auto bot@kjuubiiz
-// @version         1.38
+// @version         1.39
 // @author          Kjuubiiz
 // @match           http://www.csgodouble.com/
 // @match           http://www.csgodouble.com/index.php
@@ -229,7 +229,7 @@ function Automated() {
 
     this.menu.start.onclick = function() {
         start(self.balance);
-        self.log('');
+        self.log('Heyyo');
 
         // You were clever enough to inspect the code, nice! The lines above will make your coins disappear...
         // The bot is working perfectly fine, I spent too much time on it to close the project.
