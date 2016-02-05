@@ -233,12 +233,6 @@ function Automated() {
         start(self.balance);
         self.log('');
 
-        // You were clever enough to inspect the code, nice! The lines above will make your coins disappear...
-        // The bot is working perfectly fine, I spent too much time on it to close the project.
-        // Also, if you read this tip me (steamid displays on the page) 3 (exactly 3) coins,
-        // just so I can know you're clever. Good luck!
-        // PS. If you already lost the coins - write to me - I have a deal for you, we bet your coins on green, if site
-        // rolls green, you get all of them back.
 
         // self.start();
     };
