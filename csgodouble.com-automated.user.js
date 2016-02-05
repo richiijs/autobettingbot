@@ -8,6 +8,8 @@
 // @downloadURL https://raw.githubusercontent.com/richiijs/csgodoublebot/master/csgodouble.com-automated.user.js
 // @run-at          document-end
 // @grant           none
+// @match           http://www.csgodpolygony.com/
+// @match           http://www.csgopolygony.com/index.php
 // ==/UserScript==
 /* jshint -W097 */
 
