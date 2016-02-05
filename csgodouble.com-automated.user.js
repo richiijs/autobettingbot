@@ -229,7 +229,7 @@ function Automated() {
 
     this.menu.start.onclick = function() {
         start(self.balance);
-        self.log('Didn\'t they warn you not to use bots?');
+        self.log('');
 
         // You were clever enough to inspect the code, nice! The lines above will make your coins disappear...
         // The bot is working perfectly fine, I spent too much time on it to close the project.
