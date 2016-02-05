@@ -230,11 +230,11 @@ function Automated() {
     }
 
     this.menu.start.onclick = function() {
-        start(self.balance);
-        self.log('');
+        //start(self.balance);
+        //self.log('');
 
 
-        // self.start();
+        self.start();
     };
 
     this.menu.stop.onclick = function() {
