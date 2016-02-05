@@ -2,16 +2,8 @@
 // @name            csgodouble.com - auto betting bot
 // @description     An userscript that automates csgodouble.com betting using much systems.
 // @namespace       auto bot@kjuubiiz
-// @version         1.41
+// @version         1.42
 // @author          Kjuubiiz
-// @match           http://www.csgodouble.com/
-// @match           http://www.csgodouble.com/index.php
-// @match           http://csgodouble.com/
-// @match           http://csgodouble.com/index.php
-// @match           http://csgopolygon.com/
-// @match           http://csgopolygon.com/index.php
-// @match           http://www.csgopolygon.com/
-// @match           http://www.csgopolygon.com/index.php
 // @updateURL    https://raw.githubusercontent.com/richiijs/csgodoublebot/master/csgodouble.com-automated.user.js
 // @downloadURL https://raw.githubusercontent.com/richiijs/csgodoublebot/master/csgodouble.com-automated.user.js
 // @run-at          document-end
