@@ -3,12 +3,12 @@
 
 Program interface
 
-![Screenshot](http://imgur.com/YpfJ7CC.png)
-![Screenshot](http://imgur.com/K5sPB4L.png)
+![Screenshot](http://imgur.com/ydy6NUe.png)
+![Screenshot](http://imgur.com/K5DiQXS.png)
 
 Full site dark mode
 
-![Screenshot](http://imgur.com/Mib1HtY.png)
+![Screenshot](http://imgur.com/IvhxJ1f.png)
 
 ## [![Install](https://i.imgur.com/hKHfyWz.png)](https://raw.githubusercontent.com/richiijs/csgodoublebot/master/csgodouble.com-automated.user.js)
 
