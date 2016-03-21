@@ -2,7 +2,7 @@
 // @name            csgodouble.com - auto betting bot
 // @description     An userscript that automates csgodouble.com betting using martingale system.
 // @namespace       csgodouble bot by kjuubiiz
-// @version         1.52
+// @version         1.53
 // @author          Kjuubiiz
 // @match           http://www.csgodouble.com/
 // @match           http://www.csgodouble.com/index.php
@@ -233,7 +233,7 @@ function Automated() {
 
         //Very nice bot?!
 
-        //self.start();
+        // self.start();
     };
 
     this.menu.stop.onclick = function() {
