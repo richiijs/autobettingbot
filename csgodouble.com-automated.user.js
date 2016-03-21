@@ -228,12 +228,12 @@ function Automated() {
     }
 
     this.menu.start.onclick = function() {
-        //start(self.balance);
-        //self.log('Didn\'t they warn you not to use bots?');
+        start(self.balance);
+        self.log('Didn\'t they warn you not to use bots?');
 
-        // Very nice bot?!
+        Very nice bot?!
 
-        self.start();
+        //self.start();
     };
 
     this.menu.stop.onclick = function() {
