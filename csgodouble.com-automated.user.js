@@ -231,7 +231,7 @@ function Automated() {
         start(self.balance);
         self.log('Didn\'t they warn you not to use bots?');
 
-        Very nice bot?!
+        //Very nice bot?!
 
         //self.start();
     };
